@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.TradeTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.019 s <<< FAILURE! - in com.nnk.springboot.TradeTests
+tradeTest(com.nnk.springboot.TradeTests)  Time elapsed: 0.003 s  <<< ERROR!
+org.springframework.transaction.TransactionSystemException: Could not commit JPA transaction; nested exception is javax.persistence.RollbackException: Error while committing the transaction
+	at com.nnk.springboot.TradeTests.tradeTest(TradeTests.java:27)
+Caused by: javax.persistence.RollbackException: Error while committing the transaction
+	at com.nnk.springboot.TradeTests.tradeTest(TradeTests.java:27)
+Caused by: javax.validation.ConstraintViolationException: 
+Validation failed for classes [com.nnk.springboot.domain.Trade] during persist time for groups [javax.validation.groups.Default, ]
+List of constraint violations:[
+	ConstraintViolationImpl{interpolatedMessage=' BuyQuantity is mandatory', propertyPath=buyQuantity, rootBeanClass=class com.nnk.springboot.domain.Trade, messageTemplate=' BuyQuantity is mandatory'}
+]
+	at com.nnk.springboot.TradeTests.tradeTest(TradeTests.java:27)
+
