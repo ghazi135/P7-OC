@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS `demo`;
+
+CREATE DATABASE `demo`;
+USE `demo`;
 
 CREATE TABLE BidList (
   BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
