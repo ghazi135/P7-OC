@@ -7,5 +7,12 @@ spring-boot-skeleton,com.nnk.springboot.controllers,TradeController,15,0,0,0,7,0
 spring-boot-skeleton,com.nnk.springboot.controllers,RuleNameController,15,0,0,0,7,0,7,0,7,0
 spring-boot-skeleton,com.nnk.springboot.controllers,BidListController,15,0,0,0,7,0,7,0,7,0
 spring-boot-skeleton,com.nnk.springboot.controllers,RatingController,15,0,0,0,7,0,7,0,7,0
-spring-boot-skeleton,com.nnk.springboot.service,UserService,3,0,0,0,1,0,1,0,1,0
+spring-boot-skeleton,com.nnk.springboot.service,RuleNameService,39,0,0,0,8,0,6,0,6,0
+spring-boot-skeleton,com.nnk.springboot.service,TradeService,47,0,0,0,10,0,6,0,6,0
+spring-boot-skeleton,com.nnk.springboot.service,RatingService,39,0,0,0,8,0,6,0,6,0
+spring-boot-skeleton,com.nnk.springboot.service,BidListService,47,0,0,0,11,0,6,0,6,0
+spring-boot-skeleton,com.nnk.springboot.service,CurvePointService,47,0,0,0,10,0,6,0,6,0
+spring-boot-skeleton,com.nnk.springboot.service,UserService,130,0,6,0,20,0,12,0,9,0
+spring-boot-skeleton,com.nnk.springboot.security,SecurityConfig,79,0,0,0,23,0,5,0,5,0
 spring-boot-skeleton,com.nnk.springboot,Application,8,0,0,0,3,0,2,0,2,0
+spring-boot-skeleton,com.nnk.springboot.exeption,UserAlreadyExistingException,4,0,0,0,2,0,1,0,1,0
