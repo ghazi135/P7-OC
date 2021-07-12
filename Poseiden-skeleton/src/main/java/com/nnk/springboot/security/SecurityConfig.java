@@ -39,19 +39,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .csrf().disable().exceptionHandling()
-                 .and()
-                 .headers().frameOptions().deny()
-                 .and()
-                 .authorizeRequests()
-                 .antMatchers("/").permitAll()
-                 .antMatchers("/app/**").permitAll()
-                 .antMatchers("/**").authenticated()
-                 .and()
-                 .formLogin()
-                 .loginPage("/app/login") //formulaire de la page login
-                 .loginProcessingUrl("/do-login")
-                 .failureUrl("/app/error");
+                .and()
+                .headers().frameOptions().deny()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/home").hasAnyAuthority("ADMIN")
+                .antMatchers("/").permitAll()
+                .antMatchers("/app/**").permitAll()
+                .antMatchers("/**").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/app/login") //formulaire de la page login
+                .loginProcessingUrl("/do-login")
+                .failureUrl("/app/error");
     }
 
     /**

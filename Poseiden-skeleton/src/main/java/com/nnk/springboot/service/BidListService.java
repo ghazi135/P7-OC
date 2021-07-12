@@ -15,10 +15,8 @@ public class BidListService {
     @Autowired
     BidListRepository bidListRepository;
 
-
     public BidListService(BidListRepository bidListRepository) {
     }
-
 
 
     public List<BidList> findAll() {
