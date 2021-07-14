@@ -1,22 +1,17 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.CurvePointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.hibernate.tool.schema.SchemaToolingLogging.LOGGER;
 @PreAuthorize("hasAnyRole('ADMIN','USER')")
 @Controller
 public class CurveController {
@@ -24,8 +19,6 @@ public class CurveController {
     @Autowired
     CurvePointService curvePointService;
 
-    @Autowired
-    CurvePointRepository curvePointRepository;
 
 
     @RequestMapping("/curvePoint/list")
@@ -33,27 +26,26 @@ public class CurveController {
         // DONE: find all Curve Point, add to model :DONE
         List<CurvePoint> curvePoints = curvePointService.findAll();
 
-        model.addAttribute("curvePointaz", curvePoints);
+        model.addAttribute("curvePoint", curvePoints);
 
-        return "curvePoint/list";
+        return"curvePoint/list";
     }
 
 
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint curvePoint) {
 
-        LOGGER.info("Loading page :curvePoint/add");
         return "curvePoint/add";
     }
 
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // DONE: check data valid and save to db, after saving return Curve list:DONE
-        if (result.hasErrors()) {
-
-            return "curvePoint/add";
-        }
+    public String validate(@Valid  CurvePoint curvePoint, BindingResult result, Model model) {
+        // DONE: check data valid and save to db, after saving return Curve list
+//        if (result.hasErrors()) {
+//
+//            return "curvePoint/add";
+//        }
 
         curvePointService.save(curvePoint);
         home(model);
@@ -79,13 +71,13 @@ public class CurveController {
             BindingResult result, Model model) {
         // DONE: check required fields, if valid call service to update Curve and return Curve list ..
 
-        if (result.hasErrors()) {
-
-            return "redirect:/curvePoint/update/" + id;
-        }
+//        if (result.hasErrors()) {
+//
+//            return "redirect:/curvePoint/update/" + id;
+//        }
 
         curvePointService.save(curvePoint);
-        model.addAttribute("curvePointaz", curvePointRepository.findAll());
+        model.addAttribute("curvePointaz", curvePointService.findAll());
 
         return "redirect:/curvePoint/list";
 

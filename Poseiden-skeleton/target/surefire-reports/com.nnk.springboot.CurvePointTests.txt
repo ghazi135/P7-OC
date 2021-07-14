@@ -1,4 +1,13 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.CurvePointTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.516 s - in com.nnk.springboot.CurvePointTests
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! - in com.nnk.springboot.CurvePointTests
+curvePointTest  Time elapsed: 0.028 s  <<< ERROR!
+javax.validation.ConstraintViolationException: 
+Validation failed for classes [com.nnk.springboot.domain.CurvePoint] during persist time for groups [javax.validation.groups.Default, ]
+List of constraint violations:[
+	ConstraintViolationImpl{interpolatedMessage='CreationDate is mandatory', propertyPath=creationDate, rootBeanClass=class com.nnk.springboot.domain.CurvePoint, messageTemplate='CreationDate is mandatory'}
+	ConstraintViolationImpl{interpolatedMessage='AsOfDate is mandatory', propertyPath=asOfDate, rootBeanClass=class com.nnk.springboot.domain.CurvePoint, messageTemplate='AsOfDate is mandatory'}
+]
+	at com.nnk.springboot.CurvePointTests.curvePointTest(CurvePointTests.java:31)
+

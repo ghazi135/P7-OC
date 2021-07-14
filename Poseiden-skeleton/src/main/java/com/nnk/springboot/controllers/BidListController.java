@@ -18,17 +18,17 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('ADMIN','USER')")
 @Controller
 public class BidListController {
+
     // Done: Inject Bid service
     @Autowired
     BidListService bidListService;
 
 
     @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // DONE: call service find all bids to show to the view
         List<BidList> bidLists = bidListService.findAll();
-        model.addAttribute("bidlistz" ,bidLists);
+        model.addAttribute("bidlists", bidLists);
         return "bidList/list";
 
     }
@@ -44,16 +44,24 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // DONE: check data valid and save to db, after saving return bid list DONE
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
 
             return "bidList/add";
         }
 
         bidListService.save(bid);
-        home(model);
 
-        return "bidList/list";
+
+        return home(model);
     }
+
+//    @GetMapping("/nimportequoi")
+//    public void npq() {
+//
+//        BidList bidList = new BidList();
+//
+//        this.bidListService.save(bidList);
+//    }
 
 
     @GetMapping("/bidList/update/{id}")
@@ -61,17 +69,16 @@ public class BidListController {
         // DONE: get Bid by Id and to model then show to the form DONE
 
         BidList bidList = bidListService.findById(id);
-        model.addAttribute("bidListz",bidList);
+        model.addAttribute("bidLists", bidList);
 
         return "bidList/update";
     }
 
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-            BindingResult result, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
         // DONE: check required fields, if valid call service to update Bid and return list Bid DONE
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "redirect:/bidList/update/" + id;
         }
 

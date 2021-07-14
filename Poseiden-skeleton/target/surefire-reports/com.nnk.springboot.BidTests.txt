@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.BidTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 18.104 s <<< FAILURE! - in com.nnk.springboot.BidTests
-bidListTest(com.nnk.springboot.BidTests)  Time elapsed: 0.447 s  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 18.131 s <<< FAILURE! - in com.nnk.springboot.BidTests
+bidListTest  Time elapsed: 0.818 s  <<< ERROR!
 org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement
 	at com.nnk.springboot.BidTests.bidListTest(BidTests.java:27)
 Caused by: org.hibernate.exception.GenericJDBCException: could not execute statement
