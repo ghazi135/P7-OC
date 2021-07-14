@@ -41,20 +41,7 @@
 																							   Error
 					</td>
 				</tr>
-				<tr>
-					<td>Bid:</td>
-					<td><input type="text" th:field="*{bid}"></td>
-					<td th:if="${#fields.hasErrors('bid')}" th:errors="*{bid}">bid
-																			   Error
-					</td>
-				</tr>
-				<tr>
-					<td>Ask:</td>
-					<td><input type="text" th:field="*{ask}"></td>
-					<td th:if="${#fields.hasErrors('ask')}" th:errors="*{ask}">ask
-																			   Error
-					</td>
-				</tr>
+
 				<tr>
 					<td>
 						<input type="submit" value="Save">
