@@ -39,6 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .authorizeRequests(authorize -> {
+                    authorize
+                            .antMatchers("/")
+                            .anonymous();
+                })
 
                 .csrf().disable().exceptionHandling()
                 .and()
@@ -50,10 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .and()
+                .oauth2Login()
+                .and()
                 .formLogin()
                 .loginPage("/app/login") //formulaire de la page login
                 .loginProcessingUrl("/do-login")
                 .failureUrl("/app/error");
+
     }
 
     /**

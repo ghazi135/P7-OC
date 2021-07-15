@@ -39,22 +39,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 <span class="nc" id="L41">        http</span>
+<span class="nc" id="L42">                .authorizeRequests(authorize -&gt; {</span>
+<span class="nc" id="L43">                    authorize</span>
+<span class="nc" id="L44">                            .antMatchers(&quot;/&quot;)</span>
+<span class="nc" id="L45">                            .anonymous();</span>
+<span class="nc" id="L46">                })</span>
 
-<span class="nc" id="L43">                .csrf().disable().exceptionHandling()</span>
-<span class="nc" id="L44">                .and()</span>
-<span class="nc" id="L45">                .headers().frameOptions().deny()</span>
-<span class="nc" id="L46">                .and()</span>
-<span class="nc" id="L47">                .authorizeRequests()</span>
-<span class="nc" id="L48">                .antMatchers(&quot;/admin/home&quot;).hasAnyAuthority(&quot;ADMIN&quot;)</span>
-<span class="nc" id="L49">                .antMatchers(&quot;/&quot;).permitAll()</span>
-<span class="nc" id="L50">                .antMatchers(&quot;/app/**&quot;).permitAll()</span>
-<span class="nc" id="L51">                .antMatchers(&quot;/**&quot;).authenticated()</span>
-<span class="nc" id="L52">                .and()</span>
-<span class="nc" id="L53">                .formLogin()</span>
-<span class="nc" id="L54">                .loginPage(&quot;/app/login&quot;) //formulaire de la page login</span>
-<span class="nc" id="L55">                .loginProcessingUrl(&quot;/do-login&quot;)</span>
-<span class="nc" id="L56">                .failureUrl(&quot;/app/error&quot;);</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L48">                .csrf().disable().exceptionHandling()</span>
+<span class="nc" id="L49">                .and()</span>
+<span class="nc" id="L50">                .headers().frameOptions().deny()</span>
+<span class="nc" id="L51">                .and()</span>
+<span class="nc" id="L52">                .authorizeRequests()</span>
+<span class="nc" id="L53">                .antMatchers(&quot;/admin/home&quot;).hasAnyAuthority(&quot;ADMIN&quot;)</span>
+<span class="nc" id="L54">                .antMatchers(&quot;/&quot;).permitAll()</span>
+<span class="nc" id="L55">                .antMatchers(&quot;/app/**&quot;).permitAll()</span>
+<span class="nc" id="L56">                .antMatchers(&quot;/**&quot;).authenticated()</span>
+<span class="nc" id="L57">                .and()</span>
+<span class="nc" id="L58">                .oauth2Login()</span>
+<span class="nc" id="L59">                .and()</span>
+<span class="nc" id="L60">                .formLogin()</span>
+<span class="nc" id="L61">                .loginPage(&quot;/app/login&quot;) //formulaire de la page login</span>
+<span class="nc" id="L62">                .loginProcessingUrl(&quot;/do-login&quot;)</span>
+<span class="nc" id="L63">                .failureUrl(&quot;/app/error&quot;);</span>
+
+<span class="nc" id="L65">    }</span>
 
     /**
      * Password encoder.
@@ -63,7 +71,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-<span class="nc" id="L66">        return new BCryptPasswordEncoder();</span>
+<span class="nc" id="L74">        return new BCryptPasswordEncoder();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -18,8 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-<span class="fc" id="L21">@Log4j2</span>
-<span class="fc" id="L22">public class UserController {</span>
+<span class="nc" id="L21">@Log4j2</span>
+<span class="nc" id="L22">public class UserController {</span>
     @Autowired
     private UserRepository userRepository;
 
@@ -48,7 +48,7 @@ import java.util.List;
 <span class="nc" id="L48">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
 <span class="nc" id="L49">            user.setPassword(encoder.encode(user.getPassword()));</span>
 <span class="nc" id="L50">            userRepository.save(user);</span>
-<span class="nc" id="L51">            model.addAttribute(&quot;users&quot;, userRepository.findAll());</span>
+<span class="nc" id="L51">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
 <span class="nc" id="L52">            return &quot;redirect:/user/list&quot;;</span>
         }
 <span class="nc" id="L54">        return &quot;user/add&quot;;</span>
