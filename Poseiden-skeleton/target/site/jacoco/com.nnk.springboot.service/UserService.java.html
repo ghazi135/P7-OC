@@ -14,7 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-<span class="fc" id="L17">public class UserService  implements UserDetailsService {</span>
+<span class="nc" id="L17">public class UserService  implements UserDetailsService {</span>
 
 
     @Autowired
@@ -46,26 +46,23 @@ import java.util.List;
 
     public User update(User user) throws UserAlreadyExistingException {
 
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (userRepository.existsByUsername(user.getUsername()) &amp;&amp; (!user.getUsername()</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">                                                                         .equals(userRepository.findById(user.getId())</span>
-<span class="nc" id="L51">                                                                                               .get()</span>
-<span class="nc" id="L52">                                                                                               .getUsername()))) {</span>
-<span class="nc" id="L53">            throw new UserAlreadyExistingException(&quot;User with username &quot; + user.getUsername() + &quot; is already existing&quot;);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (userRepository.existsByUsername(user.getUsername())) {</span>
+<span class="nc" id="L50">            throw new UserAlreadyExistingException(&quot;User with username &quot; + user.getUsername() + &quot; is already existing&quot;);</span>
         }
-<span class="nc" id="L55">        user.setPassword(passwordEncoder.encode(user.getPassword()));</span>
-<span class="nc" id="L56">        return userRepository.save(user);</span>
+<span class="nc" id="L52">        user.setPassword(passwordEncoder.encode(user.getPassword()));</span>
+<span class="nc" id="L53">        return userRepository.save(user);</span>
     }
 
     public void deleteById(int id) {
-<span class="nc" id="L60">        userRepository.deleteById(id);</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L57">        userRepository.deleteById(id);</span>
+<span class="nc" id="L58">    }</span>
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-<span class="nc" id="L66">        return userRepository.findByUsername(username)</span>
-<span class="nc" id="L67">                             .orElseThrow(() -&gt; {</span>
-<span class="nc" id="L68">                                 return new UsernameNotFoundException(</span>
+<span class="nc" id="L63">        return userRepository.findByUsername(username)</span>
+<span class="nc" id="L64">                             .orElseThrow(() -&gt; {</span>
+<span class="nc" id="L65">                                 return new UsernameNotFoundException(</span>
                                          &quot;Username &quot; + username + &quot; not found&quot;);
                              });
     }

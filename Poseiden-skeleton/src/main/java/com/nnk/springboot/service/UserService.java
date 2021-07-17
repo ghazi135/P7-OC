@@ -46,10 +46,7 @@ public class UserService  implements UserDetailsService {
 
     public User update(User user) throws UserAlreadyExistingException {
 
-        if (userRepository.existsByUsername(user.getUsername()) && (!user.getUsername()
-                                                                         .equals(userRepository.findById(user.getId())
-                                                                                               .get()
-                                                                                               .getUsername()))) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExistingException("User with username " + user.getUsername() + " is already existing");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
