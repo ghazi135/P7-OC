@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h2>Add New Bid</h2>
+    </div>
+
+    <div class="row">
+        <form
+                action="#" class="form-horizontal" method="post" style="width: 100%"
+                th:action="@{/bidList/validate}" th:object="${bidList}"
+        >
+            <!--
+            DONE: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
+             -->
+            <Table>
+                <tr>
+                    <td>Account:</td>
+                    <td><input th:field="*{account}" type="text"></td>
+                    <td th:errors="*{account}" th:if="${#fields.hasErrors('account')}">account
+                                                                                       Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td><input th:field="*{type}" type="text"></td>
+                    <td th:errors="*{type}" th:if="${#fields.hasErrors('type')}">type
+                                                                                 Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>BidQuantity:</td>
+                    <td><input th:field="*{bidQuantity}" type="text"></td>
+                    <td th:errors="*{bidQuantity}" th:if="${#fields.hasErrors('bidQuantity')}">bidQuantity
+                                                                                               Error
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Save">
+                    </td>
+                    <td>
+                        <input type="submit" value="Cancel">
+                    </td>
+                </tr>
+            </Table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

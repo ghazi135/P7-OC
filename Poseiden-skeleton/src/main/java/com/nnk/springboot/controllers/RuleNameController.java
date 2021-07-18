@@ -14,37 +14,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @PreAuthorize("hasAnyRole('ADMIN','USER')")
 @Controller
 public class RuleNameController {
 
+    /**
+     * @see RuleNameService
+     */
     @Autowired
     RuleNameService ruleNameService;
 
 
+    /**
+     * Rule name home.
+     *
+     * @param model     the model
+     * @return redirect to rule name list view
+     */
     @RequestMapping("/ruleName/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         // DONE: find all RuleName, add to model DONE
         List<RuleName> ruleNames = ruleNameService.findAll();
-        model.addAttribute("ruleNamez",ruleNames);
+        model.addAttribute("ruleNamez", ruleNames);
 
 
         return "ruleName/list";
     }
 
 
+    /**
+     * Add rule name form.
+     *
+     * @param ruleName the rule Name
+     * @return rating add form view
+     */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName ruleName) {
 
         return "ruleName/add";
     }
 
-
+    /**
+     * Add rule name.
+     *
+     * @param ruleName the rule name
+     * @param result   the result
+     * @return  add form view if BindingResult has error or redirect to rule name list view if is valid
+     */
     @PostMapping("/ruleName/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         // DONE: check data valid and save to db, after saving return RuleName list DONE
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
 
             return "ruleName/add";
         }
@@ -54,6 +75,13 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
+    /**
+     * Update rule name form.
+     *
+     * @param id    the rule name id to update
+     * @param model the model
+     * @return rule name update form view
+     */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // DONE: get RuleName by Id and to model then show to the form DONE
@@ -65,12 +93,20 @@ public class RuleNameController {
         return "ruleName/update";
     }
 
+    /**
+     * Update rule name.
+     *
+     * @param id       the rule name id to update
+     * @param ruleName the rule name
+     * @param result   the result
+     * @param model    the model
+     * @return  update form view if BindingResult has error or redirect to rule name list view if is valid
+     */
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
-            BindingResult result, Model model) {
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName, BindingResult result, Model model) {
         // DONE: check required fields, if valid call service to update RuleName and return RuleName list
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "redirect:/ruleName/update/" + id;
         }
         ruleNameService.save(ruleName);
@@ -78,6 +114,13 @@ public class RuleNameController {
 
         return "redirect:/ruleName/list";
     }
+
+    /**
+     * Delete rule name.
+     *
+     * @param id the rule name id to delete
+     * @return redirect to rating list form view
+     */
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {

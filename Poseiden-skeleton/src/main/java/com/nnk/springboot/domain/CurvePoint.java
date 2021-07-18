@@ -3,10 +3,8 @@ package com.nnk.springboot.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
@@ -18,21 +16,20 @@ import java.sql.Timestamp;
 public class CurvePoint {
 
     // DONE: Map columns in data table CURVEPOINT with corresponding java fields
-    @Id
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer   id;
     @NotNull(message = "CurveId is mandatory")  //not null pour valider tous les champs
-    private Integer curveId;
+    private Integer   curveId;
     @NotNull(message = "AsOfDate is mandatory")
     private Timestamp asOfDate;
     @NotNull(message = "Term is mandatory")
-    private Double term;
+    private Double    term;
     @NotNull(message = "Value is mandatory")
-    private Double value;
+    private Double    value;
     @NotNull(message = "CreationDate is mandatory")
     private Timestamp creationDate;
-
 
 
     public CurvePoint(Integer curveId, Timestamp asOfDate, Double term, Double value, Timestamp creationDate) {
@@ -46,10 +43,12 @@ public class CurvePoint {
     }
 
     public CurvePoint(int curveId, double term, double value) {
+
         this.curveId = curveId;
-        this.term= term;
-        this.value = value;
+        this.term    = term;
+        this.value   = value;
     }
+
     public CurvePoint() {
 
 

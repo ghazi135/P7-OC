@@ -16,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 
 public class RatingServiceTest {
+
     @Autowired
     private RatingService ratingService;
 
     @Test
     public void ratingTest() {
+
         Rating rating = new Rating("aaaa", "bbbb", "cccc", 10);
 
         // Save
@@ -28,7 +30,6 @@ public class RatingServiceTest {
         rating = ratingService.findById(rating.getId());
         Assert.assertNotNull(rating.getId());
         Assert.assertTrue(rating.getOrderNumber() == 10);
-
 
 
         // Update
@@ -44,6 +45,6 @@ public class RatingServiceTest {
         // Delete
         Integer id = rating.getId();
         ratingService.delete(id);
-        assertThrows(IllegalArgumentException.class , () -> ratingService.findById(id));
+        assertThrows(IllegalArgumentException.class, () -> ratingService.findById(id));
     }
 }

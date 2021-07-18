@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h2>Add New Rating</h2>
+    </div>
+
+    <div class="row">
+        <form
+                action="#"
+                class="form-horizontal"
+                method="post"
+                style="width: 100%"
+                th:action="@{/rating/validate}"
+                th:object="${rating}"
+        >
+            <!--
+            DONE: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
+             -->
+            <table>
+                <tr>
+                    <td>MoodysRating:</td>
+                    <td><input th:field="*{moodysRating}" type="text"></td>
+                    <td th:errors="*{moodysRating}" th:if="${#fields.hasErrors('moodysRating')}">moodysRating
+                                                                                                 Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>SandPRating:</td>
+                    <td><input th:field="*{sandPRating}" type="text"></td>
+                    <td th:errors="*{sandPRating}" th:if="${#fields.hasErrors('sandPRating')}">sandPRating
+                                                                                               Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>FitchRating:</td>
+                    <td><input th:field="*{fitchRating}" type="text"></td>
+                    <td th:errors="*{fitchRating}" th:if="${#fields.hasErrors('fitchRating')}">fitchRating
+                                                                                               Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>OrderNumber:</td>
+                    <td><input th:field="*{orderNumber}" type="text"></td>
+                    <td th:errors="*{orderNumber}" th:if="${#fields.hasErrors('orderNumber')}">orderNumber
+                                                                                               Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Save">
+                    </td>
+                    <td>
+                        <input type="submit" value="Cancel">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

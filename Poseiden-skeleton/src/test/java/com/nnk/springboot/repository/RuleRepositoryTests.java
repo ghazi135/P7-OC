@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,31 +16,32 @@ import java.util.Optional;
 @SpringBootTest
 public class RuleRepositoryTests {
 
-	@Autowired
-	private RuleNameRepository ruleNameRepository;
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
 
-	@Test
-	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+    @Test
+    public void ruleTest() {
 
-		// Save
-		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getId());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
+        RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
-		// Update
-		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+        // Save
+        rule = ruleNameRepository.save(rule);
+        Assert.assertNotNull(rule.getId());
+        Assert.assertTrue(rule.getName().equals("Rule Name"));
 
-		// Find
-		List<RuleName> listResult = ruleNameRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+        // Update
+        rule.setName("Rule Name Update");
+        rule = ruleNameRepository.save(rule);
+        Assert.assertTrue(rule.getName().equals("Rule Name Update"));
 
-		// Delete
-		Integer id = rule.getId();
-		ruleNameRepository.delete(rule);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
-	}
+        // Find
+        List<RuleName> listResult = ruleNameRepository.findAll();
+        Assert.assertTrue(listResult.size() > 0);
+
+        // Delete
+        Integer id = rule.getId();
+        ruleNameRepository.delete(rule);
+        Optional<RuleName> ruleList = ruleNameRepository.findById(id);
+        Assert.assertFalse(ruleList.isPresent());
+    }
 }

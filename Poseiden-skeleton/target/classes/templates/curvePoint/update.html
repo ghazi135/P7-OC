@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h2>Update CurvePoint</h2>
+    </div>
+
+    <div class="row">
+        <form
+                action="#"
+                class="form-horizontal"
+                method="post"
+                style="width: 100%"
+                th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}"
+                th:object="${curvePoint}"
+        >
+            <!--
+             DONE: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
+              -->
+            <Table>
+                <tr>
+                    <td for="curveId">CurveId</td>
+                    <td><input id="curveId" placeholder="CurveId" th:field="*{curveId}" type="text"></td>
+                    <td th:errors="*{curveId}" th:if="${#fields.hasErrors('curveId')}"></td>
+                </tr>
+
+                <tr>
+                    <td for="term">Term</td>
+                    <td><input id="term" placeholder="Term" th:field="*{term}" type="text"></td>
+                    <td th:errors="*{term}" th:if="${#fields.hasErrors('term')}"></td>
+                </tr>
+                <tr>
+                    <td for="value">Value</td>
+                    <td><input id="value" placeholder="Value" th:field="*{value}" type="text"></td>
+                    <td th:errors="*{value}" th:if="${#fields.hasErrors('value')}"></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Cancel">
+                    </td>
+                    <td>
+
+                        <input type="submit" value="Update curvePoint">
+                    </td>
+                </tr>
+            </Table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

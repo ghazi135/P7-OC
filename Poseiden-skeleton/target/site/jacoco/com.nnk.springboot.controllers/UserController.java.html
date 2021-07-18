@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exeption.UserAlreadyExistingException;
+import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.UserService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@Controller
+<span class="nc" id="L22">@Log4j2</span>
+<span class="nc" id="L23">public class UserController {</span>
+
+
+    /**
+     * @see UserService
+     */
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * User home.
+     *
+     * @param model the model
+     * @return user list view
+     */
+    @RequestMapping(&quot;/user/list&quot;)
+    public String home(Model model) {
+
+<span class="nc" id="L42">        List&lt;User&gt; users = userService.findAll();</span>
+
+<span class="nc" id="L44">        model.addAttribute(&quot;users&quot;, users);</span>
+
+<span class="nc" id="L46">        log.info(&quot;Loading page :user/list + numbre of users: &quot; + users.size());</span>
+<span class="nc" id="L47">        return &quot;user/list&quot;;</span>
+    }
+
+    /**
+     * Add user form.
+     *
+     * @param bid the model
+     * @return user add form view
+     */
+    @GetMapping(&quot;/user/add&quot;)
+    public String addUser(User bid) {
+
+<span class="nc" id="L59">        return &quot;user/add&quot;;</span>
+    }
+
+    /**
+     * Add user.
+     *
+     * @param user   the user
+     * @param result the result
+     * @param model  the model
+     * @return  add form view if BindingResult has error or redirect to user list view if is valid
+     */
+    @PostMapping(&quot;/user/validate&quot;)
+    public String validate(@Valid User user, BindingResult result, Model model) throws UserAlreadyExistingException {
+
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="nc" id="L74">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="nc" id="L75">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="nc" id="L76">            userService.save(user);</span>
+<span class="nc" id="L77">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="nc" id="L78">            return &quot;redirect:/user/list&quot;;</span>
+        }
+<span class="nc" id="L80">        return &quot;user/add&quot;;</span>
+    }
+
+    /**
+     * Update user form.
+     *
+     * @param id    the user id to update
+     * @param model the model
+     * @return user update form view
+     */
+    @GetMapping(&quot;/user/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+
+<span class="nc" id="L93">        User user = userService.findById(id);</span>
+<span class="nc" id="L94">        user.setPassword(&quot;&quot;);</span>
+<span class="nc" id="L95">        model.addAttribute(&quot;user&quot;, user);</span>
+<span class="nc" id="L96">        return &quot;user/update&quot;;</span>
+    }
+
+    /**
+     * Update user.
+     *
+     * @param id     the user id to update
+     * @param user   the user
+     * @param result the result
+     * @param model  the model
+     * @return  update form view if BindingResult has error or redirect to user list view if is valid
+     */
+    @PostMapping(&quot;/user/update/{id}&quot;)
+    public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid User user, BindingResult result, Model model) throws UserAlreadyExistingException {
+
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L112">            return &quot;user/update&quot;;</span>
+        }
+
+<span class="nc" id="L115">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="nc" id="L116">        user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="nc" id="L117">        user.setId(id);</span>
+<span class="nc" id="L118">        userService.save(user);</span>
+<span class="nc" id="L119">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="nc" id="L120">        return &quot;redirect:/user/list&quot;;</span>
+    }
+
+    /**
+     * Delete user.
+     *
+     * @param id the user id to delete
+     * @return redirect to user list form view
+     */
+    @GetMapping(&quot;/user/delete/{id}&quot;)
+    public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+
+<span class="nc" id="L132">        User user = userService.findById(id);</span>
+<span class="nc" id="L133">        userService.deleteById(id);</span>
+<span class="nc" id="L134">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="nc" id="L135">        return &quot;redirect:/user/list&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

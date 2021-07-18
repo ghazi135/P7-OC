@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.exeption.UserAlreadyExistingException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -20,15 +21,24 @@ import java.util.List;
 @Controller
 @Log4j2
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+
+
+    /**
+     * @see UserService
+     */
 
     @Autowired
     private UserService userService;
 
+    /**
+     * User home.
+     *
+     * @param model the model
+     * @return user list view
+     */
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
+
         List<User> users = userService.findAll();
 
         model.addAttribute("users", users);
@@ -37,34 +47,67 @@ public class UserController {
         return "user/list";
     }
 
+    /**
+     * Add user form.
+     *
+     * @param bid the model
+     * @return user add form view
+     */
     @GetMapping("/user/add")
     public String addUser(User bid) {
+
         return "user/add";
     }
 
+    /**
+     * Add user.
+     *
+     * @param user   the user
+     * @param result the result
+     * @param model  the model
+     * @return  add form view if BindingResult has error or redirect to user list view if is valid
+     */
     @PostMapping("/user/validate")
-    public String validate(@Valid User user, BindingResult result, Model model) {
+    public String validate(@Valid User user, BindingResult result, Model model) throws UserAlreadyExistingException {
+
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
+            userService.save(user);
             model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
         }
         return "user/add";
     }
 
+    /**
+     * Update user form.
+     *
+     * @param id    the user id to update
+     * @param model the model
+     * @return user update form view
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+        User user = userService.findById(id);
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
     }
 
+    /**
+     * Update user.
+     *
+     * @param id     the user id to update
+     * @param user   the user
+     * @param result the result
+     * @param model  the model
+     * @return  update form view if BindingResult has error or redirect to user list view if is valid
+     */
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid User user,
-                             BindingResult result, Model model) {
+    public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) throws UserAlreadyExistingException {
+
         if (result.hasErrors()) {
             return "user/update";
         }
@@ -72,16 +115,23 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        userService.save(user);
+        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 
+    /**
+     * Delete user.
+     *
+     * @param id the user id to delete
+     * @return redirect to user list form view
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+
+        User user = userService.findById(id);
+        userService.deleteById(id);
+        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 }

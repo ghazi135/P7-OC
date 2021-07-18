@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,10 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping("login")
     public ModelAndView login() {
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
@@ -25,6 +26,7 @@ public class LoginController {
 
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("users", userService.findAll());
         mav.setViewName("user/list");
@@ -33,8 +35,9 @@ public class LoginController {
 
     @GetMapping("error")
     public ModelAndView error() {
-        ModelAndView mav = new ModelAndView();
-        String errorMessage= "You are not authorized for the requested data.";
+
+        ModelAndView mav          = new ModelAndView();
+        String       errorMessage = "You are not authorized for the requested data.";
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
         return mav;

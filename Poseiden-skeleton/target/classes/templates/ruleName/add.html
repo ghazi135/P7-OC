@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h2>Add New Rule</h2>
+    </div>
+
+    <div class="row">
+        <form
+                action="#"
+                class="form-horizontal"
+                method="post"
+                style="width: 100%"
+                th:action="@{/ruleName/validate}"
+                th:object="${ruleName}"
+        >
+            <!--
+                DONE: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
+                 -->
+            <Table>
+
+                <tr>
+                    <td>Name:</td>
+                    <td><input th:field="*{name}" type="text"></td>
+                    <td th:errors="*{name}" th:if="${#fields.hasErrors('name')}">name
+                                                                                 Error
+                    </td>
+
+                <tr>
+                    <td>Description:</td>
+                    <td><input th:field="*{description}" type="text"></td>
+                    <td th:errors="*{description}" th:if="${#fields.hasErrors('description')}">description
+                                                                                               Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>Json:</td>
+                    <td><input th:field="*{json}" type="text"></td>
+                    <td th:errors="*{json}" th:if="${#fields.hasErrors('json')}">json
+                                                                                 Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>Template:</td>
+                    <td><input th:field="*{template}" type="text"></td>
+                    <td th:errors="*{template}" th:if="${#fields.hasErrors('template')}">template
+                                                                                         Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>SqlStr:</td>
+                    <td><input th:field="*{sqlStr}" type="text"></td>
+                    <td th:errors="*{sqlStr}" th:if="${#fields.hasErrors('sqlStr')}">sqlStr
+                                                                                     Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>SqlPart:</td>
+                    <td><input th:field="*{sqlPart}" type="text"></td>
+                    <td th:errors="*{sqlPart}" th:if="${#fields.hasErrors('sqlPart')}">sqlPart
+                                                                                       Error
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Save">
+                    </td>
+                    <td>
+                        <input type="submit" value="Cancel">
+                    </td>
+                </tr>
+
+            </Table>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

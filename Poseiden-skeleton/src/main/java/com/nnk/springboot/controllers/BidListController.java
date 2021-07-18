@@ -20,10 +20,22 @@ import java.util.List;
 public class BidListController {
 
     // Done: Inject Bid service
+
+
+    /**
+     * @see BidListService
+     */
+
     @Autowired
     BidListService bidListService;
 
 
+    /**
+     * Bid list home.
+     *
+     * @param model     the model
+     * @return bid list view
+     */
     @RequestMapping("/bidList/list")
     public String home(Model model) {
         // DONE: call service find all bids to show to the view
@@ -33,14 +45,24 @@ public class BidListController {
 
     }
 
-
+    /**
+     * Add bid form.
+     *
+     * @return bid list add form view
+     */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
 
         return "bidList/add";
     }
 
-
+    /**
+     * Add bid list.
+     *
+     * @param bid    the bid
+     * @param result the result
+     * @return either add form view if BindingResult has error or redirect to bid list view if is valid
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // DONE: check data valid and save to db, after saving return bid list DONE
@@ -55,14 +77,14 @@ public class BidListController {
         return home(model);
     }
 
-//    @GetMapping("/nimportequoi")
-//    public void npq() {
-//
-//        BidList bidList = new BidList();
-//
-//        this.bidListService.save(bidList);
-//    }
 
+    /**
+     * Update Bid list form.
+     *
+     * @param id    the bid list id to update
+     * @param model the model
+     * @return bid list update form view
+     */
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -73,7 +95,15 @@ public class BidListController {
 
         return "bidList/update";
     }
-
+    /**
+     * Update bid list.
+     *
+     * @param id      the bid list id to update
+     * @param bidList the bid list
+     * @param result  the result
+     * @param model   the model
+     * @return  update form view if BindingResult has error or redirect to bid list view if is valid
+     */
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
@@ -88,7 +118,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-
+    /**
+     * Delete bid list.
+     *
+     * @param id the bid list id to delete
+     * @return redirect to bid list form view
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // DONE: Find Bid by Id and delete the bid, return to Bid list Done

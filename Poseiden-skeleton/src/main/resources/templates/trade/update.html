@@ -1,58 +1,67 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<h2>Update Trade</h2>
-	</div>
+    <div class="row">
+        <h2>Update Trade</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			DONE: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
-			 -->
-			<Table>
-				<tr style="display:none;">
-					<td for="bidListId">tradeId</td>
-					<td><input type="text" th:field="*{tradeId}" id="id" placeholder="Id"></td>
-					<td th:if="${#fields.hasErrors('tradeId')}" th:errors="*{tradeId}"></td>
-				</tr>
+    <div class="row">
+        <form
+                action="#"
+                class="form-horizontal"
+                method="post"
+                style="width: 100%"
+                th:action="@{/trade/update/{id}(id=${trade.tradeId})}"
+                th:object="${trade}"
+        >
+            <!--
+            DONE: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
+             -->
+            <Table>
+                <tr style="display:none;">
+                    <td for="bidListId">tradeId</td>
+                    <td><input id="id" placeholder="Id" th:field="*{tradeId}" type="text"></td>
+                    <td th:errors="*{tradeId}" th:if="${#fields.hasErrors('tradeId')}"></td>
+                </tr>
 
-				<tr>
-					<td for="account">Account</td>
-					<td><input type="text" th:field="*{account}" id="account" placeholder="Account"></td>
-					<td th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></td>
-				</tr>
+                <tr>
+                    <td for="account">Account</td>
+                    <td><input id="account" placeholder="Account" th:field="*{account}" type="text"></td>
+                    <td th:errors="*{account}" th:if="${#fields.hasErrors('account')}"></td>
+                </tr>
 
-				<tr>
-					<td for="type">Type</td>
-					<td><input type="text" th:field="*{type}" id="description" placeholder="Type"></td>
-					<td th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></td>
-				</tr>
-				<tr>
-					<td for="json">BuyQuantity</td>
-					<td><input type="text" th:field="*{buyQuantity}" id="buyQuantity" placeholder="BuyQuantity"></td>
-					<td th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></td>
-				</tr>
+                <tr>
+                    <td for="type">Type</td>
+                    <td><input id="description" placeholder="Type" th:field="*{type}" type="text"></td>
+                    <td th:errors="*{type}" th:if="${#fields.hasErrors('type')}"></td>
+                </tr>
+                <tr>
+                    <td for="json">BuyQuantity</td>
+                    <td><input id="buyQuantity" placeholder="BuyQuantity" th:field="*{buyQuantity}" type="text"></td>
+                    <td th:errors="*{buyQuantity}" th:if="${#fields.hasErrors('buyQuantity')}"></td>
+                </tr>
 
-				<tr>
-					<td>
-						<input type="submit" value="Cancel">
-					</td>
-					<td>
+                <tr>
+                    <td>
+                        <input type="submit" value="Cancel">
+                    </td>
+                    <td>
 
-						<input type="submit" value="Update Trade">
-					</td>
-				</tr>
-			</Table>
-		</form>
-	</div>
+                        <input type="submit" value="Update Trade">
+                    </td>
+                </tr>
+            </Table>
+        </form>
+    </div>
 
 </div>
 </body>

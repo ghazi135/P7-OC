@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BidListServiceTest {
+
     @Autowired
     private BidListService bidListService;
 
@@ -46,6 +47,6 @@ public class BidListServiceTest {
         // Delete
         Integer id = bid.getBidListId();
         bidListService.delete(id);
-        assertThrows(IllegalArgumentException.class , () -> bidListService.findById(id));
+        assertThrows(IllegalArgumentException.class, () -> bidListService.findById(id));
     }
 }

@@ -20,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService;
 
 
-
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
 
@@ -36,31 +35,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.authenticationProvider(daoAuthenticationProvider());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests(authorize -> {
-                    authorize
-                            .antMatchers("/")
-                            .anonymous();
-                })
 
-                .csrf().disable().exceptionHandling()
-                .and()
-                .headers().frameOptions().deny()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/admin/home").hasAnyAuthority("ADMIN")
-                .antMatchers("/").permitAll()
-                .antMatchers("/app/**").permitAll()
-                .antMatchers("/**").authenticated()
-                .and()
-                .oauth2Login()
-                .and()
-                .formLogin()
-                .loginPage("/app/login") //formulaire de la page login
-                .loginProcessingUrl("/do-login")
-                .failureUrl("/app/error");
+        http.authorizeRequests(authorize -> {
+            authorize.antMatchers("/").anonymous();
+        })
+
+            .csrf()
+            .disable()
+            .exceptionHandling()
+            .and()
+            .headers()
+            .frameOptions()
+            .deny()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/admin/home")
+            .hasAnyAuthority("ADMIN")
+            .antMatchers("/")
+            .permitAll()
+            .antMatchers("/app/**")
+            .permitAll()
+            .antMatchers("/**")
+            .authenticated()
+            .and()
+            .oauth2Login()
+            .and()
+            .formLogin()
+            .loginPage("/app/login") //formulaire de la page login
+            .loginProcessingUrl("/do-login")
+            .failureUrl("/app/error");
 
     }
 
@@ -71,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 }

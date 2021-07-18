@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CurveServiceTest {
+
     @Autowired
     private CurvePointService curvePointService;
 
@@ -51,7 +52,7 @@ public class CurveServiceTest {
         // Delete
         Integer id = curvePoint.getId();
         curvePointService.delete(id);
-        assertThrows(IllegalArgumentException.class , () -> curvePointService.findById(id));
+        assertThrows(IllegalArgumentException.class, () -> curvePointService.findById(id));
     }
 
 
