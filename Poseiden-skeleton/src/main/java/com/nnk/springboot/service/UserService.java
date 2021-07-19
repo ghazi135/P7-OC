@@ -3,7 +3,6 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exeption.UserAlreadyExistingException;
 import com.nnk.springboot.repositories.UserRepository;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,8 +30,7 @@ public class UserService implements UserDetailsService {
     /**
      * @see PasswordEncoder
      */
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
 
     /**
@@ -74,7 +72,6 @@ public class UserService implements UserDetailsService {
         }
         log.info("---------------> save user" );
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -83,16 +80,11 @@ public class UserService implements UserDetailsService {
      *
      * @param user the user to update
      * @return the user updated
-     * @throws UserAlreadyExistingException if the user has the same username exists in the db
      */
-    public User update(User user) throws UserAlreadyExistingException {
+    public User update(User user) {
 
-        if (userRepository.existsByUsername(user.getUsername())) {
-            log.error("---------------> can not update user" );
-            throw new UserAlreadyExistingException("User with username " + user.getUsername() + " is already existing");
-        }
+
         log.info("---------------> update user" );
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
