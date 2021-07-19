@@ -81,9 +81,12 @@ public class UserService implements UserDetailsService {
      * @param user the user to update
      * @return the user updated
      */
-    public User update(User user) {
+    public User update(User user) throws UserAlreadyExistingException {
 
-
+        if (userRepository.existsByUsername(user.getUsername())) {
+            log.error("---------------> can not UPDATE user" );
+            throw new UserAlreadyExistingException("User with username " + user.getUsername() + " is already existing");
+        }
         log.info("---------------> update user" );
         return userRepository.save(user);
     }

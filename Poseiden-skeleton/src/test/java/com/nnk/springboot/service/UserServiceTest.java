@@ -55,7 +55,7 @@ public class UserServiceTest {
 
         User user = new User(1, "testusername1", "test test", "AAA BBB", "USER");
         user.setPassword("test");
-        when(passwordEncoder.encode(anyString())).thenReturn("test");
+        lenient().when(passwordEncoder.encode(anyString())).thenReturn("test");
         when(userRepository.save(user)).thenReturn(user);
         userService.save(user);
         verify(userRepository).save(user);
@@ -91,19 +91,18 @@ public class UserServiceTest {
     public void should_Update_User() throws UserAlreadyExistingException {
 
         User user = new User(1, "testusername1", "test test", "AAA BBB", "USER");
-        user.setId(1);
-        when(userRepository.existsByUsername(anyString())).thenReturn(false);
+        lenient().when(userRepository.existsByUsername(anyString())).thenReturn(false);
         userService.update(user);
         verify(userRepository).save(user);
     }
 
     @Test
     public void update_Should_Throws_UserAlreadyExistingException() {
-
-        User user1 = new User(1, "ghazi", "blabla", "AAA BBB", "USER");
-        User user2 = new User(2, "ghazi", "blabla", "AAA BBB", "USER");
+        User user1 = new User(1,"ghazi", "blabla", "AAA BBB","USER");
+        User user2 = new User(2,"ghazi", "blabla", "AAA BBB","USER");
         when(userRepository.existsByUsername(anyString())).thenReturn(true);
         Mockito.lenient().when(userRepository.findById(anyInt())).thenReturn(Optional.of(user1));
         assertThrows(UserAlreadyExistingException.class, () -> userService.update(user2));
     }
+
 }
