@@ -17,7 +17,7 @@ import java.util.Optional;
 public class TradeRepositoryTests {
 
     @Autowired
-    private TradeRepository tradeRepository;
+     TradeRepository tradeRepository;
 
     @Test
     public void tradeTest() {

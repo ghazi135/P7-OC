@@ -17,7 +17,7 @@ import java.util.Optional;
 public class RuleRepositoryTests {
 
     @Autowired
-    private RuleNameRepository ruleNameRepository;
+     RuleNameRepository ruleNameRepository;
 
     @Test
     public void ruleTest() {

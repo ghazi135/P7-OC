@@ -19,7 +19,7 @@ import java.util.Optional;
 public class CurvePointRepositoryTests {
 
     @Autowired
-    private CurvePointRepository curvePointRepository;
+     CurvePointRepository curvePointRepository;
 
     @Test
     public void curvePointTest() {

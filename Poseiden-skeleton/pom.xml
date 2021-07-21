@@ -20,11 +20,9 @@
     </parent>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <sonar.projectKey>JavaDA_PROJECT7_RESTAPI</sonar.projectKey>
-        <sonar.organization>Ghazi</sonar.organization>
+        <sonar.projectKey>ghazi135_P7-OC</sonar.projectKey>
+        <sonar.organization>ghazi135</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -141,6 +139,14 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.6</version>
             <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
         </dependency>
     </dependencies>
 

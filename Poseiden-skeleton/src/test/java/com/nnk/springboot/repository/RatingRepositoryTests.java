@@ -18,7 +18,7 @@ import java.util.Optional;
 public class RatingRepositoryTests {
 
     @Autowired
-    private RatingRepository ratingRepository;
+    RatingRepository ratingRepository;
 
     @Test
     public void ratingTest() {

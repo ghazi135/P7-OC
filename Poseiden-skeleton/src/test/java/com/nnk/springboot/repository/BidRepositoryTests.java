@@ -17,7 +17,7 @@ import java.util.Optional;
 public class BidRepositoryTests {
 
     @Autowired
-    private BidListRepository bidListRepository;
+     BidListRepository bidListRepository;
 
     @Test
     public void bidListTest() {
